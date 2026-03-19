@@ -4,11 +4,17 @@ import { MdEmail } from "react-icons/md";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 const Contact = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData]=useState({
     name:"",
     email:"",
     message:"",
   });
+  const emailJsConfig = {
+    serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+    templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+    publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+  };
   // Input Change Handler
   const handleChange=(e)=>{
     setFormData({
@@ -17,26 +23,30 @@ const Contact = () => {
     });
   };
   // Form submit handler
-  const handleSubmit=(e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    emailjs
-    .send(
-      "service_4ybc9bc",
-      "template_t0e1sq8",
-      formData,
-      "ijl_MFmQAobOx5m5t",
-    )
-    .then(
-      (result) => {
-        alert("Message sent Successfully");
-        setFormData({name:"", email:"", message:""});
-      },
-      (error)=>{
-        alert("Failed to send message, try again.")
-      }
-    )
-  }
+    if (!emailJsConfig.serviceId || !emailJsConfig.templateId || !emailJsConfig.publicKey) {
+      alert("Contact form is not configured yet. Please add EmailJS environment variables.");
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      await emailjs.send(
+        emailJsConfig.serviceId,
+        emailJsConfig.templateId,
+        formData,
+        emailJsConfig.publicKey,
+      );
+      alert("Message sent successfully");
+      setFormData({name:"", email:"", message:""});
+    } catch {
+      alert("Failed to send message, try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <section id="contact" className=" py-20 px-6">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
@@ -121,10 +131,11 @@ const Contact = () => {
 
     <button
       type="submit"
+      disabled={isSubmitting}
       className="w-full bg-[#286f6c] text-white font-semibold py-3 rounded-xl 
-      shadow-md hover:scale-[1.04] transition-all"
+      shadow-md hover:scale-[1.04] transition-all disabled:cursor-not-allowed disabled:opacity-70"
     >
-      Send Message
+      {isSubmitting ? "Sending..." : "Send Message"}
     </button>
   </form>
 </div>
