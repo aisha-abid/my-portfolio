@@ -3,7 +3,7 @@ import { FaLaptopCode } from 'react-icons/fa'
 
 const Services = () => {
   return (
-    <div className='flex flex-col-reverse gap-10 lg:flex-row items-center justify-center p-8 text-[rgb(11,46,65)] lg:p-24'
+    <div className='flex flex-col-reverse gap-10 lg:flex-row items-center justify-center px-8 py-30 text-[rgb(11,46,65)] lg:p-24'
     id='services'>
         <div className='flex flex-col gap-2 items-center justify-start'>
           <div className='flex items-center justify-start gap-3 w-full bg-white shadow-md hover:shadow-xl transition-shadow rounded-2xl p-5 cursor-pointer'>

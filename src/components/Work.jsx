@@ -2,7 +2,7 @@ import React from 'react'
 
 const Work = () => {
   return (
-    <section id='journey' className="flex flex-col items-center justify-center bg-[#f8f7f1] py-10  px-5 md:py-20">
+    <section id='journey' className="flex flex-col items-center justify-center bg-[#f8f7f1] py-30  px-5 md:py-20">
       <h1 className="text-4xl mb-10 font-bold text-[#0b2e41] lg:mb-16 lg:text-5xl">
         My Journey
       </h1>

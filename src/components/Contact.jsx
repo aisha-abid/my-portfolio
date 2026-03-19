@@ -50,22 +50,22 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className=" py-20 px-6">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-        <div className="space-y-6">
-          <h2 className="text-4xl font-bold text-[#0b2e41] relative inline-block">
+    <section id="contact" className="px-5 py-16 sm:px-6 md:py-20">
+      <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-2 md:gap-12 lg:gap-16 items-center">
+        <div className="space-y-5 text-center md:space-y-6 md:text-left">
+          <h2 className="relative inline-block text-3xl font-bold text-[#0b2e41] sm:text-4xl">
             Let's Work Together
           </h2>
-          <p className="text-lg text-gray-700 leading-relaxed">
+          <p className="text-base leading-relaxed text-gray-700 sm:text-lg">
             I'd love to collaborate on exciting ideas and meaningful projects.
             Whether you want to build something new or improve an existing product,
             feel free to reach out!
           </p>
 
-          <div className="flex gap-6">
+          <div className="flex justify-center gap-4 sm:gap-6 md:justify-start">
             <a
               href="mailto:ashimughal687@gmail.com"
-              className="w-12 h-12 rounded-full flex items-center justify-center bg-[#1d5452] hover:scale-110 transition-transform cursor-pointer shadow-md"
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-[#1d5452] shadow-md transition-transform hover:scale-110 sm:h-12 sm:w-12"
             >
               <MdEmail size={24} className="text-white" />
             </a>
@@ -74,7 +74,7 @@ const Contact = () => {
               href="https://www.linkedin.com/in/ayesha-naz"
               target="_blank"
               rel="noreferrer"
-              className="w-12 h-12 rounded-full flex items-center justify-center bg-[#eec248] hover:scale-110 transition-transform cursor-pointer shadow-md"
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-[#eec248] shadow-md transition-transform hover:scale-110 sm:h-12 sm:w-12"
             >
               <FaLinkedin size={24} className="text-white" />
             </a>
@@ -83,17 +83,17 @@ const Contact = () => {
               href="https://github.com/aisha-abid"
               target="_blank"
               rel="noreferrer"
-              className="w-12 h-12 rounded-full flex items-center justify-center bg-[#f16540] hover:scale-110 transition-transform cursor-pointer shadow-md"
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-[#f16540] shadow-md transition-transform hover:scale-110 sm:h-12 sm:w-12"
             >
               <FaGithub size={24} className="text-white" />
             </a>
           </div>
         </div>
 
-        <div className="relative  w-[90%] md:w-[75%] mx-auto">
+        <div className="relative mx-auto w-full max-w-md md:max-w-none md:w-[85%]">
           <form
             onSubmit={handleSubmit}
-            className="relative bg-white rounded-2xl p-8 space-y-5 shadow-xl border-[3px] animate-borderRotate"
+            className="relative space-y-4 rounded-2xl border-[3px] bg-white p-5 shadow-xl animate-borderRotate sm:p-6 md:space-y-5 md:p-8"
           >
             <input
               type="text"
@@ -102,8 +102,8 @@ const Contact = () => {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full border border-gray-300 focus:border-[#1d5452]
-      focus:ring-2 focus:ring-[#1d5452]/50 outline-none rounded-xl p-3"
+              className="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-[#1d5452]
+      focus:ring-2 focus:ring-[#1d5452]/50 sm:p-3 sm:text-base"
             />
             <input
               type="email"
@@ -112,8 +112,8 @@ const Contact = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full border border-gray-300 focus:border-[#eec248]
-      focus:ring-2 focus:ring-[#eec248]/50 outline-none rounded-xl p-3"
+              className="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-[#eec248]
+      focus:ring-2 focus:ring-[#eec248]/50 sm:p-3 sm:text-base"
             />
             <textarea
               name="message"
@@ -122,14 +122,14 @@ const Contact = () => {
               required
               placeholder="Write Message"
               rows="5"
-              className="w-full border border-gray-300 focus:border-[#f16540]
-    focus:ring-2 focus:ring-[#f16540]/50 outline-none rounded-xl p-3"
+              className="min-h-[120px] w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-[#f16540]
+    focus:ring-2 focus:ring-[#f16540]/50 sm:min-h-[140px] sm:p-3 sm:text-base"
             ></textarea>
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-[#286f6c] text-white font-semibold py-3 rounded-xl 
+              className="w-full rounded-xl bg-[#286f6c] py-3 text-white font-semibold 
       shadow-md hover:scale-[1.04] transition-all disabled:cursor-not-allowed disabled:opacity-70"
             >
               {isSubmitting ? "Sending..." : "Send Message"}

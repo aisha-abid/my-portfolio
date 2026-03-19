@@ -5,7 +5,7 @@ import { SiMongodb, SiExpress, SiNodedotjs } from "react-icons/si";
 
 const Skills = () => {
   return (
-<section className=" bg-[#f8f7f1] py-20 px-10 text-white flex justify-center"
+<section className=" bg-[#f8f7f1] py-30 px-10 text-white flex justify-center"
 id='skills'>
   <div className="max-w-4xl text-center space-y-12">
 
