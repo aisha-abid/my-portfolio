@@ -8,46 +8,37 @@ const Work = () => {
       </h1>
 
       <div className="flex justify-center gap-5 w-full max-w-6xl lg:gap-16">
-        
-        {/* Left Side */}
         <div className="hidden lg:flex flex-col  justify-between mb-8 text-right py-10">
           <div>
             <h3 className="text-lg font-bold text-[#0b2e41]">
               MERN Stack Developer
             </h3>
-            <p className="text-sm text-gray-600">Oct 2025 – Present</p>
-            
+            <p className="text-sm text-gray-600">Oct 2025 - Present</p>
           </div>
 
           <div>
             <h3 className="text-lg font-bold text-[#0b2e41]">
               Final Year Project
             </h3>
-            <p className="text-sm text-gray-600">Jul 2025 – Sep 2025</p>
+            <p className="text-sm text-gray-600">Jul 2025 - Sep 2025</p>
           </div>
         </div>
 
-        {/* Vertical Timeline */}
-<div className="flex flex-col items-center w-10">
-  {/* Top dot */}
-  <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-dashed border-gray-300">
-    <div className="w-8 h-8 rounded-full bg-[#1d5452]" />
-  </div>
+        <div className="flex flex-col items-center w-10">
+          <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-dashed border-gray-300">
+            <div className="w-8 h-8 rounded-full bg-[#1d5452]" />
+          </div>
 
-  {/* Auto-sizing dashed line */}
-  <div className="grow border-l-2 border-dashed border-gray-300" />
+          <div className="grow border-l-2 border-dashed border-gray-300" />
 
-  {/* Bottom dot */}
-  <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-dashed border-gray-300">
-    <div className="w-8 h-8 rounded-full bg-[#eec248]" />
-  </div>
-</div>
+          <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-dashed border-gray-300">
+            <div className="w-8 h-8 rounded-full bg-[#eec248]" />
+          </div>
+        </div>
 
-
-        {/* Right Side Details */}
         <div className="flex flex-col gap-10 text-left max-w-md">
           <div className="text-gray-700 leading-relaxed">
-             <h3 className="text-lg font-bold text-[#0b2e41]">
+            <h3 className="text-lg font-bold text-[#0b2e41]">
               Intern at U DEV
             </h3>
             <p>
@@ -59,7 +50,7 @@ const Work = () => {
           </div>
 
           <div className="text-gray-700 leading-relaxed">
-             <h3 className="text-lg font-bold text-[#0b2e41]">
+            <h3 className="text-lg font-bold text-[#0b2e41]">
               Event Nest System
             </h3>
             <p>
