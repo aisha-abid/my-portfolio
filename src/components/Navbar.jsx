@@ -7,6 +7,7 @@ const navItems = [
   { name: 'Skills', id: 'skills' },
   { name: 'Services', id: 'services' },
   { name: 'Journey', id: 'journey' },
+  { name: 'Contact', id: 'contact' },
 ]
 
 const Navbar = () => {
@@ -63,14 +64,15 @@ const Navbar = () => {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <button
-            type="button"
-            onClick={() => handleScroll('contact')}
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noreferrer"
             className="rounded-full bg-[#0b2e41] px-4 py-2 text-sm font-medium text-[#f8f7f1] transition-all duration-300 hover:bg-[#286f6c] sm:px-5"
-            aria-label="Go to contact section"
+            aria-label="Open resume"
           >
-            Contact
-          </button>
+            Resume
+          </a>
 
           <button
             type="button"
