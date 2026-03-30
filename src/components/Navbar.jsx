@@ -66,10 +66,9 @@ const Navbar = () => {
         <div className="flex items-center gap-2 sm:gap-3">
           <a
             href="/resume.pdf"
-            target="_blank"
-            rel="noreferrer"
+            download="public/Ayesha Naz - Mern Stack Developer Resume.pdf"
             className="rounded-full bg-[#0b2e41] px-4 py-2 text-sm font-medium text-[#f8f7f1] transition-all duration-300 hover:bg-[#286f6c] sm:px-5"
-            aria-label="Open resume"
+            aria-label="Download resume"
           >
             Resume
           </a>
