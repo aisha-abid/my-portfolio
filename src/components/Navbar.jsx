@@ -65,8 +65,8 @@ const Navbar = () => {
 
         <div className="flex items-center gap-2 sm:gap-3">
           <a
-            href="/AyeshaNaz -Mern-Resume.pdf"
-            download="AyeshaNaz -Mern-Resume.pdf"
+            href="/Ayesha_Naz_Resume.pdf"
+            download="Ayesha_Naz_Resume.pdf"
             className="rounded-full bg-[#0b2e41] px-4 py-2 text-sm font-medium text-[#f8f7f1] transition-all duration-300 hover:bg-[#286f6c] sm:px-5"
             aria-label="Download resume"
           >
