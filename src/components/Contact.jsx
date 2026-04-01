@@ -10,6 +10,17 @@ const EMAILJS_PLACEHOLDERS = new Set([
   "your_public_key",
 ]);
 
+const EMAILJS_FALLBACK_CONFIG = {
+  serviceId: "service_4ybc9bc",
+  templateId: "template_t0e1sq8",
+  publicKey: "ijl_MFmQAobOx5m5t",
+};
+
+const resolveConfigValue = (value, fallback) => {
+  const normalizedValue = (value ?? "").trim();
+  return EMAILJS_PLACEHOLDERS.has(normalizedValue) ? fallback : normalizedValue;
+};
+
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState({ type: "", message: "" });
@@ -20,9 +31,18 @@ const Contact = () => {
   });
 
   const emailJsConfig = {
-    serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
-    templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-    publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+    serviceId: resolveConfigValue(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      EMAILJS_FALLBACK_CONFIG.serviceId,
+    ),
+    templateId: resolveConfigValue(
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      EMAILJS_FALLBACK_CONFIG.templateId,
+    ),
+    publicKey: resolveConfigValue(
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+      EMAILJS_FALLBACK_CONFIG.publicKey,
+    ),
   };
 
   useEffect(() => {
@@ -37,14 +57,6 @@ const Contact = () => {
     return () => window.clearTimeout(timeoutId);
   }, [status]);
 
-  const missingConfig = Object.entries({
-    VITE_EMAILJS_SERVICE_ID: emailJsConfig.serviceId,
-    VITE_EMAILJS_TEMPLATE_ID: emailJsConfig.templateId,
-    VITE_EMAILJS_PUBLIC_KEY: emailJsConfig.publicKey,
-  })
-    .filter(([, value]) => EMAILJS_PLACEHOLDERS.has((value ?? "").trim()))
-    .map(([key]) => key);
-
   const handleChange = (e) => {
     setStatus({ type: "", message: "" });
     setFormData({
@@ -55,14 +67,6 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (missingConfig.length > 0) {
-      setStatus({
-        type: "error",
-        message: `Contact form is not configured. Missing: ${missingConfig.join(", ")}. If you just added them, restart the Vite server.`,
-      });
-      return;
-    }
 
     try {
       setIsSubmitting(true);
