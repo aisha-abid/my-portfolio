@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import emailjs from "emailjs-com";
-import { MdEmail } from "react-icons/md";
+import { MdEmail, MdCheckCircle, MdErrorOutline, MdClose } from "react-icons/md";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
+
+const EMAILJS_PLACEHOLDERS = new Set([
+  "",
+  "your_service_id",
+  "your_template_id",
+  "your_public_key",
+]);
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState({ type: "", message: "" });
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,7 +25,28 @@ const Contact = () => {
     publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
   };
 
+  useEffect(() => {
+    if (!status.message) {
+      return undefined;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setStatus({ type: "", message: "" });
+    }, 4500);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [status]);
+
+  const missingConfig = Object.entries({
+    VITE_EMAILJS_SERVICE_ID: emailJsConfig.serviceId,
+    VITE_EMAILJS_TEMPLATE_ID: emailJsConfig.templateId,
+    VITE_EMAILJS_PUBLIC_KEY: emailJsConfig.publicKey,
+  })
+    .filter(([, value]) => EMAILJS_PLACEHOLDERS.has((value ?? "").trim()))
+    .map(([key]) => key);
+
   const handleChange = (e) => {
+    setStatus({ type: "", message: "" });
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -27,23 +56,30 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!emailJsConfig.serviceId || !emailJsConfig.templateId || !emailJsConfig.publicKey) {
-      alert("Contact form is not configured yet. Please add EmailJS environment variables.");
+    if (missingConfig.length > 0) {
+      setStatus({
+        type: "error",
+        message: `Contact form is not configured. Missing: ${missingConfig.join(", ")}. If you just added them, restart the Vite server.`,
+      });
       return;
     }
 
     try {
       setIsSubmitting(true);
+      setStatus({ type: "", message: "" });
       await emailjs.send(
         emailJsConfig.serviceId,
         emailJsConfig.templateId,
         formData,
         emailJsConfig.publicKey,
       );
-      alert("Message sent successfully");
+      setStatus({ type: "success", message: "Message sent successfully." });
       setFormData({ name: "", email: "", message: "" });
     } catch {
-      alert("Failed to send message, try again.");
+      setStatus({
+        type: "error",
+        message: "Failed to send message. Please verify your EmailJS service, template, and public key.",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -91,6 +127,54 @@ const Contact = () => {
         </div>
 
         <div className="relative mx-auto w-full max-w-md md:max-w-none md:w-[85%]">
+          <div className="pointer-events-none absolute inset-x-0 -top-20 z-20 flex justify-center">
+            <div
+              className={`pointer-events-auto w-full max-w-sm rounded-2xl border px-4 py-3 shadow-lg transition-all duration-300 ${
+                status.message
+                  ? "translate-y-0 opacity-100"
+                  : "-translate-y-3 opacity-0"
+              } ${
+                status.type === "success"
+                  ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+                  : "border-red-200 bg-red-50 text-red-800"
+              }`}
+              role="status"
+              aria-live="polite"
+            >
+              <div className="flex items-start gap-3">
+                <div
+                  className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${
+                    status.type === "success"
+                      ? "bg-emerald-100 text-emerald-600"
+                      : "bg-red-100 text-red-600"
+                  }`}
+                >
+                  {status.type === "success" ? (
+                    <MdCheckCircle size={20} />
+                  ) : (
+                    <MdErrorOutline size={20} />
+                  )}
+                </div>
+
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-semibold">
+                    {status.type === "success" ? "Message delivered" : "Something went wrong"}
+                  </p>
+                  <p className="mt-1 text-sm leading-relaxed">{status.message || " "}</p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setStatus({ type: "", message: "" })}
+                  className="rounded-full p-1 text-current/70 transition-colors hover:bg-black/5 hover:text-current"
+                  aria-label="Dismiss notification"
+                >
+                  <MdClose size={18} />
+                </button>
+              </div>
+            </div>
+          </div>
+
           <form
             onSubmit={handleSubmit}
             className="relative space-y-4 rounded-2xl border-[3px] bg-white p-5 shadow-xl animate-borderRotate sm:p-6 md:space-y-5 md:p-8"
