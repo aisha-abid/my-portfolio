@@ -3,23 +3,7 @@ import emailjs from "emailjs-com";
 import { MdEmail, MdCheckCircle, MdErrorOutline, MdClose } from "react-icons/md";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 
-const EMAILJS_PLACEHOLDERS = new Set([
-  "",
-  "your_service_id",
-  "your_template_id",
-  "your_public_key",
-]);
 
-const EMAILJS_FALLBACK_CONFIG = {
-  serviceId: "service_4ybc9bc",
-  templateId: "template_t0e1sq8",
-  publicKey: "ijl_MFmQAobOx5m5t",
-};
-
-const resolveConfigValue = (value, fallback) => {
-  const normalizedValue = (value ?? "").trim();
-  return EMAILJS_PLACEHOLDERS.has(normalizedValue) ? fallback : normalizedValue;
-};
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,20 +15,10 @@ const Contact = () => {
   });
 
   const emailJsConfig = {
-    serviceId: resolveConfigValue(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      EMAILJS_FALLBACK_CONFIG.serviceId,
-    ),
-    templateId: resolveConfigValue(
-      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-      EMAILJS_FALLBACK_CONFIG.templateId,
-    ),
-    publicKey: resolveConfigValue(
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-      EMAILJS_FALLBACK_CONFIG.publicKey,
-    ),
-  };
-
+  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+  templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+};
   useEffect(() => {
     if (!status.message) {
       return undefined;
