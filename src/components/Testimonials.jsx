@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   FiArrowLeft,
   FiArrowRight,
