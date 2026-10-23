@@ -14,7 +14,7 @@ const Footer = () => {
 
           <div className="flex gap-3 mt-4">
             <a
-              href="mailto:ashimughal687@gmail.com"
+              href="mailto:aisha.software.engineer@gmail.com"
               className="w-10 h-10 rounded-full flex items-center justify-center bg-[#1d5452] hover:scale-110 transition-transform shadow-md"
             >
               <MdEmail size={20} className="text-white" />
@@ -57,10 +57,10 @@ const Footer = () => {
             Feel free to reach out for collaborations and opportunities.
           </p>
           <a
-            href="mailto:ashimughal687@gmail.com"
+            href="mailto:aisha.software.engineer@gmail.com"
             className="text-sm text-[#1d5452] hover:underline"
           >
-            ashimughal687@gmail.com
+            aisha.software.engineer@gmail.com
           </a>
         </div>
       </div>

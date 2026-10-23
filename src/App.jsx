@@ -7,6 +7,8 @@ import About from './components/About'
 import Skills from './components/Skills'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import Projects from './components/Projects'
+import Testimonials from './components/Testimonials'
 
 const App = () => {
   
@@ -18,6 +20,8 @@ const App = () => {
     <Skills/>
     <Services/>
     <Work/>
+    <Projects/>
+    <Testimonials/>
     <Contact/>
     <Footer/>
     </>
