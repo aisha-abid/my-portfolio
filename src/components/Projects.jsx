@@ -28,7 +28,7 @@ const projects = [
     description:
       "A professional digital presence showcasing construction services and completed projects.",
     image: nurriddinImage,
-    link: "YOUR_NURRIDDIN_LIVE_URL",
+    link: "https://nurriddinrenovation.com/",
     imageBg: "#eec248",
     accent: "#eec248",
   },
@@ -40,7 +40,7 @@ const projects = [
     description:
       "A modern online storefront designed to present products through a smooth shopping experience.",
     image: wallsVerseImage,
-    link: "YOUR_WALLS_VERSE_LIVE_URL",
+    link: "https://wallsverse.com/",
     imageBg: "#1d5452",
     accent: "#1d5452",
   },
@@ -52,7 +52,7 @@ const projects = [
     description:
       "A clean and modern website designed to present business services with clarity and confidence.",
     image: aivoraSysImage,
-    link: "YOUR_AIVORASYS_LIVE_URL",
+    link: "https://aivorasys.com/",
     imageBg: "#b9ded5",
     accent: "#f16540",
   },

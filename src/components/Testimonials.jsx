@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
@@ -6,7 +5,32 @@ import {
   FiArrowRight,
   FiStar,
 } from "react-icons/fi";
+import nurriddinImg from "../assets/images/clients/nurriddin.png";
 
+/* Shows the photo if `image` exists, otherwise falls back to initials */
+const Avatar = ({ person, className }) => {
+  const [failed, setFailed] = useState(false);
+  const showImage = person.image && !failed;
+
+  return (
+    <div
+      className={`flex items-center justify-center overflow-hidden rounded-full font-bold ${className}`}
+      style={{ backgroundColor: person.avatar }}
+    >
+      {showImage ? (
+        <img
+          src={person.image}
+          alt={person.name}
+          loading="lazy"
+          onError={() => setFailed(true)}
+          className="h-full w-full object-cover"
+        />
+      ) : (
+        person.initials
+      )}
+    </div>
+  );
+};
 
 const testimonials = [
   {
@@ -15,9 +39,10 @@ const testimonials = [
     role: "Nurriddin Construction",
     initials: "N",
     avatar: "#eec248",
+    image: nurriddinImg,
     project: "Construction Website",
     quote:
-      "The website presents our construction services in a professional and organized way. The clean design and project showcase help communicate our work clearly.",
+      "Huge compliments to the creator of the Nurriddin Construction & Renovation Crew website! The website is stunning, super intuitive, and exceptionally well-designed. It beautifully showcases the company’s services, projects, and commitment to quality craftsmanship. Thank you for your talent, dedication, and for bringing such a brilliant project to life! Highly recommended! 🚀",
   },
   {
     id: 2,
@@ -26,8 +51,7 @@ const testimonials = [
     initials: "MR",
     avatar: "#b9ded5",
     project: "Business Website",
-    quote:
-    "Good work and delivered exactly, what I needed.",
+    quote: "Good work and delivered exactly, what I needed.",
   },
   {
     id: 3,
@@ -36,7 +60,8 @@ const testimonials = [
     initials: "M",
     avatar: "#f3c5ad",
     project: "Walls Verse Website",
-    quote:"Loved the website, it looks so good! You were super cooperative, never pushed or bothered me, and delivered right on my timeline. Thank you!"
+    quote:
+      "Loved the website, it looks so good! You were super cooperative, never pushed or bothered me, and delivered right on my timeline. Thank you!",
   },
 ];
 
@@ -52,9 +77,7 @@ const Testimonials = () => {
   };
 
   const next = () => {
-    setActiveIndex(
-      (current) => (current + 1) % testimonials.length
-    );
+    setActiveIndex((current) => (current + 1) % testimonials.length);
   };
 
   const getTestimonial = (offset) =>
@@ -65,11 +88,10 @@ const Testimonials = () => {
 
   return (
     <section
-      id="testimonials"
+      id="reviews"
       className="overflow-hidden bg-[#faf8f2] px-5 py-20 sm:px-8 md:py-28"
     >
       <div className="mx-auto max-w-7xl">
-
         {/* Section heading */}
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 20 }}
@@ -80,54 +102,38 @@ const Testimonials = () => {
         >
           <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#f9edd7] px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#b77b13]">
             <span className="h-2 w-2 rounded-full bg-[#eec248]" />
-            Testimonials
+            Reviews
           </span>
 
           <h2 className="font-['Poppins'] text-3xl font-extrabold tracking-tight text-[#102b2b] sm:text-4xl md:text-5xl">
-            People Talk{" "}
-            <span className="text-[#1d5452]">About Us</span>
+            People Talk <span className="text-[#1d5452]">About Us</span>
           </h2>
 
           <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-[#eec248]" />
 
           <p className="mx-auto mt-5 max-w-xl font-['Inter'] text-sm leading-7 text-gray-600 sm:text-base">
-            Every project tells a story. Here&apos;s what
-            clients have to say about working with us and
-            bringing their ideas to life.
+            Every project tells a story. Here&apos;s what clients have to
+            say about working with us and bringing their ideas to life.
           </p>
         </motion.div>
 
         {/* Testimonial carousel */}
         <div className="relative mx-auto max-w-6xl">
-
-          {/* Side cards + center card */}
           <div className="relative flex min-h-[390px] items-center justify-center">
-
             <div className="flex w-full items-center justify-center gap-5 sm:gap-7">
-
               {/* Previous card */}
               <motion.article
                 key={`prev-${getTestimonial(-1).id}`}
                 initial={false}
-                animate={{
-                  opacity: 0.76,
-                  scale: 0.88,
-                  x: 0,
-                }}
-                transition={{
-                  duration: reduceMotion ? 0 : 0.45,
-                }}
+                animate={{ opacity: 0.76, scale: 0.88, x: 0 }}
+                transition={{ duration: reduceMotion ? 0 : 0.45 }}
                 className="hidden w-[31%] flex-none rounded-[26px] border border-[#e8e6dd] bg-white/80 p-7 shadow-sm md:block"
               >
                 <div className="mb-6 flex justify-center">
-                  <div
-                    className="flex h-14 w-14 items-center justify-center rounded-full border-4 border-white text-sm font-bold text-[#1d5452] shadow-md"
-                    style={{
-                      backgroundColor: getTestimonial(-1).avatar,
-                    }}
-                  >
-                    {getTestimonial(-1).initials}
-                  </div>
+                  <Avatar
+                    person={getTestimonial(-1)}
+                    className="h-14 w-14 border-4 border-white text-sm text-[#1d5452] shadow-md"
+                  />
                 </div>
 
                 <p className="line-clamp-4 text-center font-['Inter'] text-sm leading-7 text-gray-600">
@@ -159,9 +165,7 @@ const Testimonials = () => {
                       ? undefined
                       : { opacity: 0, y: -10, scale: 0.98 }
                   }
-                  transition={{
-                    duration: reduceMotion ? 0 : 0.35,
-                  }}
+                  transition={{ duration: reduceMotion ? 0 : 0.35 }}
                   className="relative z-10 w-full max-w-xl flex-none rounded-[28px] border border-white bg-white px-6 pb-8 pt-10 shadow-[0_18px_55px_rgba(29,84,82,0.09)] sm:px-10 sm:pb-10 sm:pt-12"
                 >
                   {/* Decorative quote */}
@@ -170,23 +174,15 @@ const Testimonials = () => {
                   </span>
 
                   <div className="mb-7 flex justify-center">
-                    <div
-                      className="flex h-[76px] w-[76px] items-center justify-center rounded-full border-[5px] border-white text-xl font-bold text-[#102b2b] shadow-[0_5px_20px_rgba(0,0,0,0.10)]"
-                      style={{
-                        backgroundColor: getTestimonial(0).avatar,
-                      }}
-                    >
-                      {getTestimonial(0).initials}
-                    </div>
+                    <Avatar
+                      person={getTestimonial(0)}
+                      className="h-[76px] w-[76px] border-[5px] border-white text-xl text-[#102b2b] shadow-[0_5px_20px_rgba(0,0,0,0.10)]"
+                    />
                   </div>
 
                   <div className="mb-5 flex justify-center gap-1 text-[#eec248]">
                     {[1, 2, 3, 4, 5].map((star) => (
-                      <FiStar
-                        key={star}
-                        size={16}
-                        fill="currentColor"
-                      />
+                      <FiStar key={star} size={16} fill="currentColor" />
                     ))}
                   </div>
 
@@ -212,25 +208,15 @@ const Testimonials = () => {
               <motion.article
                 key={`next-${getTestimonial(1).id}`}
                 initial={false}
-                animate={{
-                  opacity: 0.76,
-                  scale: 0.88,
-                  x: 0,
-                }}
-                transition={{
-                  duration: reduceMotion ? 0 : 0.45,
-                }}
+                animate={{ opacity: 0.76, scale: 0.88, x: 0 }}
+                transition={{ duration: reduceMotion ? 0 : 0.45 }}
                 className="hidden w-[31%] flex-none rounded-[26px] border border-[#e8e6dd] bg-white/80 p-7 shadow-sm md:block"
               >
                 <div className="mb-6 flex justify-center">
-                  <div
-                    className="flex h-14 w-14 items-center justify-center rounded-full border-4 border-white text-sm font-bold text-[#1d5452] shadow-md"
-                    style={{
-                      backgroundColor: getTestimonial(1).avatar,
-                    }}
-                  >
-                    {getTestimonial(1).initials}
-                  </div>
+                  <Avatar
+                    person={getTestimonial(1)}
+                    className="h-14 w-14 border-4 border-white text-sm text-[#1d5452] shadow-md"
+                  />
                 </div>
 
                 <p className="line-clamp-4 text-center font-['Inter'] text-sm leading-7 text-gray-600">
@@ -246,7 +232,6 @@ const Testimonials = () => {
                   </p>
                 </div>
               </motion.article>
-
             </div>
           </div>
 
@@ -269,9 +254,7 @@ const Testimonials = () => {
                   type="button"
                   onClick={() => setActiveIndex(index)}
                   aria-label={`Show testimonial ${index + 1}`}
-                  aria-current={
-                    activeIndex === index ? "true" : undefined
-                  }
+                  aria-current={activeIndex === index ? "true" : undefined}
                   className={`h-2 rounded-full transition-all duration-300 ${
                     activeIndex === index
                       ? "w-8 bg-[#1d5452]"
@@ -292,7 +275,6 @@ const Testimonials = () => {
             </motion.button>
           </div>
         </div>
-
       </div>
     </section>
   );

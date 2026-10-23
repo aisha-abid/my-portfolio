@@ -104,3 +104,21 @@ p, nav a, small {
   border: 2px solid currentColor;
   animation: timelineOrbit 2s ease-out infinite;
 }
+@keyframes hireShine {
+  0%, 65% {
+    transform: translateX(-150%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(150%) skewX(-20deg);
+  }
+}
+
+@utility animate-hireShine {
+  animation: hireShine 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hireShine {
+    animation: none;
+  }
+}
